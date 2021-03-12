@@ -31,7 +31,7 @@
                     <!-- <a class="logo" title="尚品汇" href="###" target="_blank">
                         <img src="./images/logo.png" alt="">
                     </a> -->
-                    <router-link to='/home' class="logo" title="尚品汇" target="_blank">
+                    <router-link to='/home' class="logo" title="尚品汇">
                         <img src="./images/logo.png" alt="">
                     </router-link>
                 </h1>

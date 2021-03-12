@@ -1,10 +1,17 @@
 <template>
-  <div>Search</div>
+ <div>
+    <TypeNav></TypeNav>
+    <ListContent></ListContent>
+ </div>
 </template>
 
 <script>
+import ListContent from '@/pages/Search/ListContent'
 export default {
-    name:'Search'
+    name:'Search',
+    components:{
+      ListContent
+    }
 }
 </script>
 

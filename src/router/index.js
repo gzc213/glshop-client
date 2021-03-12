@@ -36,4 +36,10 @@ const router = new VueRouter({
         }
     ]
 })
+const routerPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function(location,resolved,rejected){
+    if(!resolved && !rejected) routerPush.call(this,location).catch(()=>{})
+    else routerPush.call(this,location)
+}   
 export default router
