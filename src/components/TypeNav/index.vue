@@ -2,7 +2,118 @@
    <!-- 商品分类导航 -->
         <div class="type-nav">
             <div class="container">
-                <h2 class="all">全部商品分类</h2>
+                <div @mouseleave="blockDiv" @mouseenter="isShow = true">
+                    <h2 class="all">全部商品分类</h2>
+              <transition name="sort">
+                    <div class="sort" 
+                    @click="toSearch"
+                    v-show="isShow"
+                    >
+                    <div class="all-sort-list2" >
+                        <div class="item" 
+                            v-for="(c1,index) in dateCategoryList" 
+                            :key="c1.categoryId"
+                            :class="{item_on:currentIndex===index }"
+                            @mouseenter="movEnter(index)">
+                            <h3>
+                                <!-- 事件委托 -->
+                                <a href="javascript:;" 
+                                    :data-categoryName='c1.categoryName' 
+                                    :data-category1Id ='c1.categoryId'
+                                    >{{c1.categoryName}}</a>
+                                <!-- <a href="javascript:;" 
+                                    @click="$router.push({
+                                                 name:'search',
+                                                query:{
+                                                     categoryName:c1.categoryName,
+                                                     category1Id:c1.categoryId 
+                                                      }
+                                                   })"
+                                    >{{c1.categoryName}}</a> -->
+                                <!-- 第一种方式:声明式导航  -->
+                                 <!-- <router-link 
+                                   :to="{
+                                       name:'search',
+                                       query:{
+                                         categoryName:c1.categoryName,
+                                         category1Id:c1.categoryId
+                                       }
+                                   }"
+                                    >{{c1.categoryName}}</router-link> -->
+                            </h3>
+                            <div class="item-list clearfix">
+                                <div class="subitem">
+                                    <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                                        <dt>
+                                            <!-- 事件委托 -->
+                                 <a href="javascript:;" 
+                                    :data-categoryName='c2.categoryName' 
+                                    :data-category2Id ='c2.categoryId'
+                                    >{{c2.categoryName}}</a>
+
+                                            <!-- 编程式导航 -->
+                                             <!-- <a href="javascript:;" 
+                                                @click="$router.push({
+                                                            name:'search',
+                                                            query:{
+                                                                categoryName:c2.categoryName,
+                                                                category2Id:c2.categoryId 
+                                                                }
+                                                            })"
+                                                >{{c2.categoryName}}</a> -->
+
+
+                                            <!-- 第一种方式:声明式导航
+                                            <router-link
+                                                    :to="{
+                                                    name: 'search',
+                                                    query: {
+                                                        categoryName: c2.categoryName,
+                                                        category2Id: c2.categoryId,
+                                                    },
+                                                    }"
+                                                >{{ c2.categoryName }}</router-link> -->
+                                        </dt>
+                                        <dd>
+                                            <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                                                <!-- 事件委托 -->
+                                            <a href="javascript:;" 
+                                                :data-categoryName='c3.categoryName' 
+                                                :data-category3Id ='c3.categoryId'
+                                                >{{c3.categoryName}}</a>
+
+
+                                                <!-- 编程式导航 -->
+                                                <!-- <a href="javascript:;" @click="$router.push({
+                                                            name:'search',
+                                                            query:{
+                                                                categoryName:c3.categoryName,
+                                                                category3Id:c3.categoryId 
+                                                            }
+                                                        })">{{c3.categoryName}}</a> -->
+
+
+
+                                                    <!-- 第一种方式:声明式导航
+                                                        <router-link 
+                                                            :to="{
+                                                                name:'search',
+                                                               query:{
+                                                                    categoryName:c3.categoryName,
+                                                                    category3Id:c3.categoryId
+                                                                }
+                                                            }"
+                                                        >{{c3.categoryName}}</router-link> -->
+                                            </em>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </transition>
+                </div >
                 <nav class="nav">
                     <a href="###">服装城</a>
                     <a href="###">美妆馆</a>
@@ -13,29 +124,7 @@
                     <a href="###">有趣</a>
                     <a href="###">秒杀</a>
                 </nav>
-                <div class="sort">
-                    <div class="all-sort-list2">
-                        <div class="item" v-for="c1 in dateCategoryList" :key="c1.categoryId">
-                            <h3>
-                                <a href="">{{c1.categoryName}}</a>
-                            </h3>
-                            <div class="item-list clearfix">
-                                <div class="subitem">
-                                    <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                                        <dt>
-                                            <a href="">{{c2.categoryName}}</a>
-                                        </dt>
-                                        <dd>
-                                            <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                                                <a href="">{{c3.categoryName}}</a>
-                                            </em>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -43,10 +132,51 @@
 
 <script>
 import {mapState} from 'vuex'
+import throttle from 'lodash/throttle'
 export default {
   name: 'TypeNav',
+  data(){
+      return{
+        currentIndex :-1, //三级菜单划过高亮
+        isShow:true //标志三级菜单导航是否隐藏
+      }
+  },
   mounted(){
-      this.$store.dispatch('getCategoryList')
+      if(this.$route.path !=='/home') this.isShow = false
+  },
+  methods:{
+      movEnter:throttle(function(index){
+          this.currentIndex = index
+      }, 20, { 'trailing': false }),
+
+      //事件委托
+      toSearch(e){
+         let {dataset} = e.target
+         let {categoryname,category1id,category2id,category3id} = dataset
+         let location ={
+             name:'search'
+         }
+         let query ={
+             categoryName :categoryname
+         }
+         if(category1id){
+             query.category1Id=category1id
+         }else if(category2id){
+             query.category2Id=category2id
+         }else if(category3id){
+              query.category3Id=category3id
+         }
+         location.query = query
+         if(this.$route.params){
+             location.params = this.$route.params
+         }
+        console.log(location)
+         this.$router.push(location)
+      },
+      blockDiv(){
+          this.currentIndex=-1
+          if(this.$route.path !== '/home') this.isShow = false
+      }
   },
   computed:{
       ...mapState({
@@ -94,9 +224,20 @@ export default {
                 width: 210px;
                 height: 461px;
                 position: absolute;
-                background: #fafafa;
+                background: #d4a57e;
                 z-index: 999;
-
+                &.sort-enter{
+                    opacity: 0;
+                    height: 0;
+                }
+                &.sort-enter-to{
+                    opacity: 1;
+                    height: 461px;
+                }
+                &.sort-enter-active{
+                    transition: all .5s;
+                    
+                }
                 .all-sort-list2 {
                     .item {
                         h3 {
@@ -166,7 +307,7 @@ export default {
                             }
                         }
 
-                        &:hover {
+                        &.item_on{
                              background-color: hotpink;
                             .item-list {
                                 display: block;

@@ -19,8 +19,9 @@ const router = new VueRouter({
                 isDis:true
             }
         },
-        {
-            path:'/search',
+        {   
+            name:'search',
+            path:'/search/:keyword?',
             component:Search
         },
         {
@@ -37,9 +38,8 @@ const router = new VueRouter({
     ]
 })
 const routerPush = VueRouter.prototype.push
-
 VueRouter.prototype.push = function(location,resolved,rejected){
     if(!resolved && !rejected) routerPush.call(this,location).catch(()=>{})
-    else routerPush.call(this,location)
+    else routerPush.call(this,location,resolved,rejected)
 }   
 export default router
