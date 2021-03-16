@@ -4,17 +4,15 @@
             <div class="container">
                 <div @mouseleave="blockDiv" @mouseenter="isShow = true">
                     <h2 class="all">全部商品分类</h2>
-              <transition name="sort">
-                    <div class="sort" 
-                    @click="toSearch"
-                    v-show="isShow"
-                    >
+                <transition name="sort">
+                    <div class="sort" v-show="isShow">
                     <div class="all-sort-list2" >
                         <div class="item" 
                             v-for="(c1,index) in dateCategoryList" 
                             :key="c1.categoryId"
                             :class="{item_on:currentIndex===index }"
-                            @mouseenter="movEnter(index)">
+                            @mouseenter="movEnter(index)"
+                            @click="toSearch">
                             <h3>
                                 <!-- 事件委托 -->
                                 <a href="javascript:;" 
@@ -43,7 +41,9 @@
                             </h3>
                             <div class="item-list clearfix">
                                 <div class="subitem">
-                                    <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                                    <dl class="fore" 
+                                        v-for="c2 in c1.categoryChild" 
+                                        :key="c2.categoryId">
                                         <dt>
                                             <!-- 事件委托 -->
                                  <a href="javascript:;" 
@@ -75,7 +75,9 @@
                                                 >{{ c2.categoryName }}</router-link> -->
                                         </dt>
                                         <dd>
-                                            <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                                            <em 
+                                                v-for="c3 in c2.categoryChild" 
+                                                :key="c3.categoryId">
                                                 <!-- 事件委托 -->
                                             <a href="javascript:;" 
                                                 :data-categoryName='c3.categoryName' 
@@ -153,6 +155,8 @@ export default {
       toSearch(e){
          let {dataset} = e.target
          let {categoryname,category1id,category2id,category3id} = dataset
+        
+         if(categoryname){
          let location ={
              name:'search'
          }
@@ -160,18 +164,18 @@ export default {
              categoryName :categoryname
          }
          if(category1id){
-             query.category1Id=category1id
+           query.category1Id=category1id
          }else if(category2id){
-             query.category2Id=category2id
+           query.category2Id=category2id
          }else if(category3id){
-              query.category3Id=category3id
-         }
+           query.category3Id=category3id
+         } 
          location.query = query
          if(this.$route.params){
-             location.params = this.$route.params
+            location.params = this.$route.params
          }
-        console.log(location)
-         this.$router.push(location)
+            this.$router.push(location)
+         }
       },
       blockDiv(){
           this.currentIndex=-1
