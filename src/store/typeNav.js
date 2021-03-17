@@ -25,14 +25,12 @@ const actions ={
     },
     async getListcontainer({commit}){
         const result =await ListContainer()
-        console.log(result)
         if(result.code === 200){
             commit('RESOVE_DATALISTCONTAINERLIST',result.data)
         }
     },
     async getdataFloorList({commit}){
         const result = await FloorContainer()
-        console.log(result)
         if(result.code===200){
             commit('RESOVE_DATAFLOORLIST',result.data)
         }
