@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import typeNav from '@/store/typeNav'
+import search from '@/store/search'
 Vue.use(Vuex)
 
 const actions ={}
@@ -13,7 +14,8 @@ const store =new Vuex.Store({
     mutations,
     getters,
     modules:{
-        typeNav
+        typeNav,
+        search
     }
 })
 export default store

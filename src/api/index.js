@@ -8,6 +8,14 @@ export const CategoryList = ()=>{
         method:'get',
     })
 }
+//search页面  post /api/list
+export const goodsListInfo = (searchInfoParams)=>{
+  return Ajax({
+    url:'/list',
+    method:'post',
+    data:searchInfoParams
+  })
+}
 export const ListContainer =()=>{
   return  mockAjax({
     url:'/banner',
