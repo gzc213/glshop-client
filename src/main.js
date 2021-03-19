@@ -6,10 +6,11 @@ import '@/mock/mackServer'
 import store from '@/store'
 import 'swiper/css/swiper.css'
 import SlideShow from '@/components/SlideShow'
-
+import Pagination from '@/components/Pagination'
 // import '@/api'
 Vue.component(TypeNav.name,TypeNav)
 Vue.component(SlideShow.name,SlideShow)
+Vue.component(Pagination.name,Pagination)
 Vue.config.productionTip = false
 
 new Vue({

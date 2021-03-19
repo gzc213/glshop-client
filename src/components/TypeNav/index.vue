@@ -174,7 +174,7 @@ export default {
          if(this.$route.params){
             location.params = this.$route.params
          }
-            this.$router.push(location)
+            this.$router.replace(location)
          }
       },
       blockDiv(){

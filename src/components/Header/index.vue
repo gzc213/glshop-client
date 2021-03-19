@@ -66,7 +66,7 @@ export default {
             if(this.$route.query){
                 location.query = this.$route.query
             }
-            this.$router.push(location)
+            this.$router.replace(location)
         },
         claerKeyword(){
             this.keyword = ''
