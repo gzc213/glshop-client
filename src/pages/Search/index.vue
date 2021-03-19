@@ -133,7 +133,7 @@ export default {
         keyword: "",
         order: "1:desc",
         pageNo: 1,
-        pageSize: 4,
+        pageSize: 1,
         props: [],
         trademark: "",
       },

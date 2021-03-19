@@ -12,7 +12,7 @@
         @click="$emit('changePageNo',tt)"
         >{{tt}}</button>
 
-    <button v-if="startEnd.end < pageTotal - 1">···</button>
+    <button v-if="startEnd.end <= pageTotal - 1">···</button>
     <button v-if="startEnd.end !== pageTotal" @click="$emit('changePageNo',pageTotal)">{{ pageTotal }}</button>
     <button :disabled="pageNo === pageTotal" @click="$emit('changePageNo',pageNo + 1)">下一页</button>
     <button style="margin-left: 30px">共 {{ total }} 条</button>
@@ -57,8 +57,8 @@ export default {
         start = 1;
         end = pageTotal;
       } else {
-        start = Math.floor(pageNo - pageConsecutive / 2);
-        end = Math.floor(pageNo + pageConsecutive / 2);
+        start = pageNo - Math.floor(pageConsecutive / 2);
+        end = pageNo + Math.floor(pageConsecutive / 2);
         if (start <= 1) {
           start = 1;
           end = pageConsecutive;
