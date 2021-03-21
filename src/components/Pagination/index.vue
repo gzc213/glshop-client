@@ -1,20 +1,34 @@
 <template>
   <div class="pagination">
-    <button :disabled="pageNo === 1" @click="$emit('changePageNo',pageNo-1)">上一页</button>
-    <button v-if="startEnd.start !== 1" @click="$emit('changePageNo',1)">1</button>
+    <button :disabled="pageNo === 1" @click="$emit('changePageNo', pageNo - 1)">
+      上一页
+    </button>
+    <button v-if="startEnd.start !== 1" @click="$emit('changePageNo', 1)">
+      1
+    </button>
     <button v-if="startEnd.start > 2">···</button>
-
-    <button 
-        v-for="tt in startEnd.end" 
-        :key="tt"
+    <div v-for="tt in startEnd.end" :key="tt" class="button_for">
+      <button
         v-if="tt >= startEnd.start"
-        :class="{active:tt===pageNo}"
-        @click="$emit('changePageNo',tt)"
-        >{{tt}}</button>
-
+        :class="{ active: tt === pageNo }"
+        @click="$emit('changePageNo', tt)"
+      >
+        {{ tt }}
+      </button>
+    </div>
     <button v-if="startEnd.end <= pageTotal - 1">···</button>
-    <button v-if="startEnd.end !== pageTotal" @click="$emit('changePageNo',pageTotal)">{{ pageTotal }}</button>
-    <button :disabled="pageNo === pageTotal" @click="$emit('changePageNo',pageNo + 1)">下一页</button>
+    <button
+      v-if="startEnd.end !== pageTotal"
+      @click="$emit('changePageNo', pageTotal)"
+    >
+      {{ pageTotal }}
+    </button>
+    <button
+      :disabled="pageNo === pageTotal"
+      @click="$emit('changePageNo', pageNo + 1)"
+    >
+      下一页
+    </button>
     <button style="margin-left: 30px">共 {{ total }} 条</button>
   </div>
 </template>
@@ -103,6 +117,9 @@ export default {
       background-color: #409eff;
       color: #fff;
     }
+  }
+  .button_for {
+    display: inline-block;
   }
 }
 </style>
