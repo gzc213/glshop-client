@@ -1,12 +1,19 @@
-import {addToCart} from '@/api'
+import {
+    addToCart
+} from '@/api'
 const state = {}
 const mutations = {}
 const actions = {
-    async getAddToCart({commit},{skuId,skuNum}){
-        const result = await addToCart(skuId,skuNum)
-        if(result.code === 200){
+    async getAddToCart({
+        commit
+    }, {
+        skuId,
+        skuNum
+    }) {
+        const result = await addToCart(skuId, skuNum)
+        if (result.code === 200) {
             return Promise.resolve()
-        }else{
+        } else {
             return Promise.reject()
         }
     }

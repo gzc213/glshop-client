@@ -110,7 +110,7 @@
               </div>
               <div class="add">
                 <a href="javascript:;" @click="toCart">加入购物车</a>
-                <!-- <router-link :to="'/addcart/'+ skuNum +skuId">加入购物车</router-link> -->
+                <!-- <router-link :to="toCart">加入购物车</router-link> -->
               </div>
             </div>
           </div>
@@ -381,8 +381,9 @@ export default {
           skuNum: this.skuNum,
           skuId: this.skuId,
         });
-        sessionStorage.setItem('SKUINFO_KEY',JSON.stringify(this.skuInfo))
-        this.$router.push('/addcart?skuNum='+this.skuNum);
+        console.log("1111");
+        sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(this.skuInfo));
+        this.$router.push("/addcart?skuNum=" + this.skuNum);
       } catch (error) {
         alert("添加购物车失败");
       }

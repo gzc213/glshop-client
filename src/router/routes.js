@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-20 18:28:26
- * @LastEditTime: 2021-03-21 20:50:54
+ * @LastEditTime: 2021-03-22 08:38:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-glshop\src\router\routes.js
