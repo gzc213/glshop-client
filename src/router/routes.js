@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-20 18:28:26
- * @LastEditTime: 2021-03-22 08:38:42
+ * @LastEditTime: 2021-03-22 17:05:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-glshop\src\router\routes.js
@@ -12,7 +12,12 @@ import Search from "@/pages/Search";
 import Register from "@/pages/Register";
 import Detail from "@/pages/Detail";
 import AddCartSuccess from '@/pages/AddCartSuccess'
+import ShopCart from '@/pages/ShopCart'
 export default [{
+        path: '/shopcart',
+        component: ShopCart,
+    },
+    {
         path: '/addcart',
         component: AddCartSuccess,
         name: 'addCart'
