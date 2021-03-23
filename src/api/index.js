@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-12 15:05:50
- * @LastEditTime: 2021-03-22 21:05:51
+ * @LastEditTime: 2021-03-23 19:56:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-glshop\src\api\index.js
@@ -48,7 +48,7 @@ export const shopCartList = () => {
 // /api/cart/addToCart/{ skuId }/{ skuNum } 对购物车已有的物品进行修改 post
 export const updataShopCartList = (skuId, skuNum) => {
   return Ajax({
-    url: `/cart/addToCart/${ skuId }/${ skuNum }`,
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
     method: 'post'
   })
 }
@@ -84,6 +84,47 @@ export const deleteShopAll = (skuIds) => {
     data: skuIds
   })
 }
+// /api/user/passport/sendCode/{phone}   get  请求验证码
+export const phoneCode = (phone) => {
+  return Ajax({
+    url: `/user/passport/sendCode/${phone}`,
+    method: 'get'
+  })
+}
+///api/user/passport/register  注册用户   post
+export const userRegister = (userInfo) => {
+  return Ajax({
+    url: '/user/passport/register',
+    method: 'post',
+    data: userInfo
+  })
+}
+///api/user/passport/login 登录 post 
+export const userLogin = (userInfo) => {
+  return Ajax({
+    url: '/user/passport/login',
+    method: 'post',
+    data: userInfo
+  })
+}
+
+// /api/user/passport/auth/getUserInfo   get  根据token获取用户信息
+export const userInfo = () => {
+  return Ajax({
+    url: '/user/passport/auth/getUserInfo',
+    method: 'get'
+  })
+}
+// /api/user/passport/logout 退出登录 get 
+export const logout = () => {
+  return Ajax({
+    url: '/user/passport/logout',
+    method: 'get'
+  })
+}
+
+
+
 
 
 

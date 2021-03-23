@@ -10,8 +10,12 @@ const Ajax = new axios.create({
 Ajax.interceptors.request.use(config => {
   NProgress.start()
   let userTempId = store.state.user.userTempId
+  let token = store.state.user.token
   if (userTempId) {
     config.headers.userTempId = userTempId
+  }
+  if (token) {
+    config.headers.token = token
   }
   return config
 })
@@ -24,6 +28,6 @@ Ajax.interceptors.response.use((response) => {
 }, (error) => {
   NProgress.done()
   alert('请求失败', error.message)
-  return new Promise(() => {}) //中断promise链
+  return new Promise(() => { }) //中断promise链
 })
 export default Ajax
