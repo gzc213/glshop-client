@@ -10,23 +10,17 @@
         <div class="cart-th5">小计（元）</div>
         <div class="cart-th6">操作</div>
       </div>
-      <div
-        class="cart-body"
-        v-for="(shopCart, index) in shopCartList"
-        :key="index"
-      >
-        <ul
-          class="cart-list"
-          v-for="cartInfo in shopCart.cartInfoList"
-          :key="cartInfo.skuId"
-        >
+      <div class="cart-body"
+           v-for="(shopCart, index) in shopCartList"
+           :key="index">
+        <ul class="cart-list"
+            v-for="cartInfo in shopCart.cartInfoList"
+            :key="cartInfo.skuId">
           <li class="cart-list-con1">
-            <input
-              type="checkbox"
-              name="chk_list"
-              :checked="cartInfo.isChecked"
-              @click="changeCheck(cartInfo)"
-            />
+            <input type="checkbox"
+                   name="chk_list"
+                   :checked="cartInfo.isChecked"
+                   @click="changeCheck(cartInfo)" />
           </li>
           <li class="cart-list-con2">
             <img :src="cartInfo.imgUrl" />
@@ -39,36 +33,28 @@
             <span class="price">{{ cartInfo.skuPrice }}</span>
           </li>
           <li class="cart-list-con5">
-            <a
-              href="javascript:void(0)"
-              class="mins"
-              @click="changeNum(cartInfo, -1)"
-              >-</a
-            >
-            <input
-              autocomplete="off"
-              type="text"
-              :value="cartInfo.skuNum"
-              minnum="1"
-              class="itxt"
-              @change="
+            <a href="javascript:void(0)"
+               class="mins"
+               @click="changeNum(cartInfo, -1)">-</a>
+            <input autocomplete="off"
+                   type="text"
+                   :value="cartInfo.skuNum"
+                   minnum="1"
+                   class="itxt"
+                   @change="
                 changeNum(cartInfo, $event.target.value * 1 - cartInfo.skuNum)
-              "
-            />
-            <a
-              href="javascript:void(0)"
-              class="plus"
-              @click="changeNum(cartInfo, 1)"
-              >+</a
-            >
+              " />
+            <a href="javascript:void(0)"
+               class="plus"
+               @click="changeNum(cartInfo, 1)">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{ cartInfo.skuNum * cartInfo.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="javascript:;" class="sindelet" @click="deleteOne(cartInfo)"
-              >删除</a
-            >
+            <a href="javascript:;"
+               class="sindelet"
+               @click="deleteOne(cartInfo)">删除</a>
             <br />
             <a href="javascript:;">移到收藏</a>
           </li>
@@ -77,25 +63,29 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" v-model="changeAll" />
+        <input class="chooseAll"
+               type="checkbox"
+               v-model="changeAll" />
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="javascript:;" @click="deleteAll">删除选中的商品</a>
+        <a href="javascript:;"
+           @click="deleteAll">删除选中的商品</a>
         <a href="javascript:;">移到我的关注</a>
         <a href="javascript:;">清除下柜商品</a>
       </div>
       <div class="money-box">
         <div class="chosed">
-          已选择 <span>{{ checkedNum }}</span
-          >件商品
+          已选择 <span>{{ checkedNum }}</span>件商品
         </div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
           <i class="summoney">{{ checkedPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <a class="sum-btn"
+             href="###"
+             target="_blank">结算</a>
         </div>
       </div>
     </div>
@@ -106,15 +96,15 @@
 import { mapGetters, mapState } from "vuex";
 export default {
   name: "ShopCart",
-  mounted() {
+  mounted () {
     this.getShopCartList();
   },
   methods: {
-    getShopCartList() {
+    getShopCartList () {
       this.$store.dispatch("getShopCartList");
     },
     //商品个数增删改
-    async changeNum(cartInfo, num) {
+    async changeNum (cartInfo, num) {
       if (num + cartInfo.skuNum < 1) {
         num = 1 - cartInfo.skuNum;
       }
@@ -129,7 +119,7 @@ export default {
       }
     },
     //点击修改单个状态
-    async changeCheck(cartInfo) {
+    async changeCheck (cartInfo) {
       let skuId = cartInfo.skuId;
       let isChecked = cartInfo.isChecked ? 0 : 1;
       try {
@@ -140,7 +130,7 @@ export default {
       }
     },
     //点击删除单个
-    async deleteOne(cartInfo) {
+    async deleteOne (cartInfo) {
       try {
         await this.$store.dispatch("getDeleteShopOne", cartInfo.skuId);
         this.getShopCartList();
@@ -149,7 +139,7 @@ export default {
       }
     },
     //点击删除多个
-    async deleteAll() {
+    async deleteAll () {
       let skuIds = [];
       this.shopCartList.forEach((item) => {
         item.cartInfoList.forEach((item1) => {
@@ -172,14 +162,14 @@ export default {
     }),
     ...mapGetters(["checkedNum", "checkedPrice"]),
     changeAll: {
-      get() {
+      get () {
         return (
           this.shopCartList.every((item) =>
             item.cartInfoList.every((item1) => item1.isChecked === 1)
           ) && this.shopCartList.length > 0
         );
       },
-      async set(val) {
+      async set (val) {
         let isChecked = val ? 1 : 0;
         let skuIds = [];
         this.shopCartList.forEach((item) => {
