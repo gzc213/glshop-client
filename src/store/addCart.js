@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-03-21 20:20:42
- * @LastEditTime: 2021-03-23 08:43:24
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-glshop\src\store\addCart.js
- */
+//购物车的小store
 import {
   addToCart,
   deleteShopAll,
@@ -25,12 +18,7 @@ const mutations = {
 }
 const actions = {
   //添加到购物车
-  async getAddToCart ({
-    commit
-  }, {
-    skuId,
-    skuNum
-  }) {
+  async getAddToCart ({ commit }, { skuId, skuNum }) {
     const result = await addToCart(skuId, skuNum)
     if (result.code === 200) {
       return Promise.resolve()
@@ -39,21 +27,14 @@ const actions = {
     }
   },
 
-  async getShopCartList ({
-    commit
-  }) {
+  async getShopCartList ({ commit }) {
     const result = await shopCartList()
     if (result.code === 200) {
       commit('RESOVE_SHOPCARTLIST', result.data)
     }
   },
   //更新购物车数量
-  async getUpdataShopCartList ({
-    commit
-  }, {
-    skuId,
-    skuNum
-  }) {
+  async getUpdataShopCartList ({ commit }, { skuId, skuNum }) {
     const result = await updataShopCartList(skuId, skuNum)
     if (result.code === 200) {
       return Promise.resolve()
@@ -62,12 +43,7 @@ const actions = {
     }
   },
   //更新单个选定状态
-  async getUpdataCheckCart ({
-    commit
-  }, {
-    skuId,
-    isChecked
-  }) {
+  async getUpdataCheckCart ({ commit }, { skuId, isChecked }) {
     const result = await updataCheckCart(skuId, isChecked)
     if (result.code === 200) {
       return Promise.resolve()
@@ -76,12 +52,7 @@ const actions = {
     }
   },
   //更新多个选定状态
-  async getUpdataCheckCartAll ({
-    commit
-  }, {
-    isChecked,
-    skuIds
-  }) {
+  async getUpdataCheckCartAll ({ commit }, { isChecked, skuIds }) {
     const result = await updataCheckCartAll(isChecked, skuIds)
     if (result.code === 200) {
       return Promise.resolve()
@@ -90,9 +61,7 @@ const actions = {
     }
   },
   //删除单个
-  async getDeleteShopOne ({
-    commit
-  }, skuId) {
+  async getDeleteShopOne ({ commit }, skuId) {
     const result = await deleteShopOne(skuId)
     if (result.code === 200) {
       return Promise.resolve()
@@ -101,9 +70,7 @@ const actions = {
     }
   },
   //删除多个
-  async getDeleteShopAll ({
-    commit
-  }, skuIds) {
+  async getDeleteShopAll ({ commit }, skuIds) {
     const result = await deleteShopAll(skuIds)
     if (result.code === 200) {
       return Promise.resolve()
